@@ -1,0 +1,33 @@
+#terminal-input {
+    background-color: #000000;
+    border: 2px solid #DDAA00;
+    color: #AAAA77;
+    float: left;
+    font-family: monospace;
+    font-size: 15px;
+    height: 300px;
+    width: 60%;
+}
+#terminal-search {
+    background-color: black;
+    border: 0 none;
+    height: 0;
+    position: absolute;
+    visibility: hidden;
+}
+.ui-menu .ui-menu-item {
+    background-color: black;
+    color: #666;
+}
+#content {
+    height: 300px;
+}
+#results {
+    float: left;
+    width: 37%;
+}
+.submit{
+    float: left;
+    height: 300px;
+    width: 30px;
+}

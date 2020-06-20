@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div id="content">
+    <input id="terminal-search" />
+    <form name="terminal"
+          method="post"
+          onkeydown = "if (event.ctrlKey && event.keyCode == 13) $(this).submit();"
+          onsubmit = '$.post("", $(this).serialize())
+                .done(function(data){
+                    $("#results").html(data.result);
+                    $("#id_speed").val(data.speed);
+                    $("#speed_txt span").html(data.speed);
+                    $("#old_speed_txt span").html(data.old_speed);
+                }).fail(function(data){  $("#results").html(data.responseText); });
+                return false;'
+    >
+        {% csrf_token %}
+        {{ model.content }}
+        {{ model.speed }}
+        <input class="submit" type="submit" value=">" />
+    </form>
+    <div id="results">{{ model.result }}</div>
+    <div class="clearfix"></div>
+    <div id="old_speed_txt">Old Speed: <span>0</span> s</div>
+    <div id="speed_txt">Current Speed: <span>0</span> s</div>
+    <div class="clearfix"></div>
+    <div id="function-doc"></div>
+</div>
+{% endblock %}

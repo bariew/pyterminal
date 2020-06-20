@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# THIS IS FOR RUNNING COMMON CLI COMMANDS
+
+COMMAND=$1;
+PARAM1=$2;
+PARAM2=$3;
+PARAM3=$4;
+PARAM4=$5
+APP=$PARAM1;
+DIR=$( cd "$( dirname $0 )" && pwd );
+
+case "$COMMAND" in
+    init)
+#        chmod 0777 app/runtime
+#        chmod 0777 web/assets
+#        chmod -R 0777 web/files
+        cp -n project/conf/my.cnf.example project/conf/my.cnf
+#        php composer.phar install --prefer-dist
+    ;&
+    update)
+        python3 manage.py migrate
+        python3 manage.py collectstatic
+    ;&
+    up)
+        fuser -k 8000/tcp
+        python3 manage.py runserver &
+#        python3 manage.py runserver > /dev/null 2>&1 &
+    ;;
+    down)
+        fuser -k 8000/tcp
+    ;;
+    dev)
+        python3 manage.py makemigrations
+        python3 manage.py migrate
+    ;;
+    create)
+        python3 manage.py startapp $PARAM1
+    ;;
+    *)
+        echo "$COMMAND is not a valid command"
+    ;;
+esac
